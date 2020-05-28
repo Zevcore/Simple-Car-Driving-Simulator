@@ -9,10 +9,11 @@ public class Main {
 
     public static void main(String[] args) {
         Simulator s = new Simulator();
+
         Window w = new Window(s);
         w.setTitle(title);
-        s.start();
 
+        s.start();
     }
 
 }

@@ -13,8 +13,11 @@ public class Simulator extends JPanel implements Runnable {
     private int width = 1280;
     private int height = 720;
 
+    private int frames = 0;
+    private int updates = 0;
+
     //Runnable settings
-    private Thread t;
+    private Thread thread;
     private boolean running;
 
     private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -42,8 +45,8 @@ public class Simulator extends JPanel implements Runnable {
     public synchronized void start() {
         if(running) return;
         running = true;
-        t = new Thread(this, "sim");
-        t.start();
+        thread = new Thread(this, "sim");
+        thread.start();
     }
 
     public synchronized void stop() {
@@ -58,53 +61,53 @@ public class Simulator extends JPanel implements Runnable {
         g.setColor(Color.BLACK);
         g.fillRect(10, 10, 100, 100);
         g.dispose();
+
+        System.out.println(this.frames);
     }
     public void update() {}
 
+    @Override
     public void run() {
-        int fps = 0; // frames per sec
-        int updates = 0; // updates per sec
+        long x = System.nanoTime();
+        long y = System.currentTimeMillis();
+        double ns = 1000000000.0 / 60.0;
+        double delta = 0;
+        int ticks = 0;
+        int frames = 0;
 
-        double ns = 1000000000D / 60D;
-        double then = System.nanoTime();
-        double unprocessed = 0;
-
-        long fpsTimer = System.currentTimeMillis();
+        init();
 
         while(running) {
-            boolean render = false;
-            double now = System.nanoTime();
+            long now = System.nanoTime();
+            delta += (now - x) / ns;
+            x = now;
 
-            unprocessed += (now - then) / ns;
-
-            while(unprocessed >= 1) {
-                updates++;
+            boolean renderThis = true;
+            while (delta >= 1) {
+                ticks++;
                 update();
-                unprocessed--;
-                render = true;
+                delta -= 1;
+                renderThis = true;
             }
 
-            if(render) {
-                fps++;
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            if(renderThis) {
+                frames++;
                 render();
-                render = false;
-            } else {
-                try {
-                    t.sleep(1);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            }
+
+            if(System.currentTimeMillis() - y >= 1000) {
+                y += 1000;
+                this.frames = frames;
+                this.updates = ticks;
+                frames = 0;
+                ticks = 0;
             }
         }
-
-        if(System.currentTimeMillis() - fpsTimer > 1000) {
-            System.out.printf("%d FPS", fps);
-            System.out.println();
-
-            fps = 0;
-            updates = 0;
-            fpsTimer += 1000;
-        }
-
     }
 }
