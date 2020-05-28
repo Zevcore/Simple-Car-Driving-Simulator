@@ -84,16 +84,13 @@ public class Container extends JFrame implements Runnable {
         /* Wyświetlanie */
         g.fillRect(0, 0, width, height);
         g.setColor(Color.white);
+        g.setFont(new Font("TimesRoman", Font.PLAIN, 24));
 
-        if(car.getGear() == -1) {
-            g.drawString("Bieg: R", 10, 30);
+        if(this.frames != 0) {
+            g.drawString("FPS: " + this.frames, 1150, 20);
         }
-        else if(car.getGear() == 0) {
-            g.drawString("Bieg: Neutral", 10, 30);
-        }
-        else {
-            g.drawString("Bieg: " + car.getGear(), 10, 30);
-        }
+        g.drawString("TICKS: " + updates, 1150, 50);
+        car.render(g);
 
 
         bs.show();
@@ -136,10 +133,6 @@ public class Container extends JFrame implements Runnable {
                 frames++;
                 render();
 
-                //Pokaż fpsy
-                if(this.frames != 0) {
-                    System.out.printf("%d FPS \n", this.frames);
-                }
             }
 
             if(System.currentTimeMillis() - y >= 1000) {

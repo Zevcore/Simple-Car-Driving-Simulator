@@ -1,5 +1,7 @@
 package pl.wsb.car;
 
+import java.awt.*;
+
 public class Car {
 
     private int speed = 0;
@@ -26,27 +28,33 @@ public class Car {
 
     }
 
-    public int getSpeed() {
-        return speed;
-    }
+    public void render(Graphics g) {
 
-    public int getGear() {
-        return gear;
-    }
+        if(engine) {
+            g.drawString("Silnik: włączony", 10, 20);
+        }
+        else {
+            g.drawString("Silnik: wyłączony", 10, 20);
+        }
 
-    public int getRpm() {
-        return rpm;
-    }
+        if(lights) {
+            g.drawString("Swiatla: włączone", 10, 50);
+        }
+        else {
+            g.drawString("Swiatla: wyłączone", 10, 50);
+        }
 
-    public boolean isEngine() {
-        return engine;
-    }
+        if(gear == -1) {
+            g.drawString("Bieg: R", 10, 80);
+        }
+        else if(gear == 0) {
+            g.drawString("Bieg: Neutral", 10, 80);
+        }
+        else {
+            g.drawString("Bieg: " + gear, 10, 80);
+        }
 
-    public boolean isLights() {
-        return lights;
-    }
+        g.drawString("Obroty silnika: " + rpm, 10, 110);
 
-    public boolean isMusic() {
-        return music;
     }
 }
