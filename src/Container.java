@@ -69,6 +69,7 @@ public class Container extends JFrame implements Runnable {
 
     public void update() {
         car.update();
+        screen.update();
     }
 
     public void render() {
@@ -83,7 +84,7 @@ public class Container extends JFrame implements Runnable {
         /* Wyświetlanie */
         g.fillRect(0, 0, width, height);
         g.setColor(Color.white);
-        g.setFont(new Font("TimesRoman", Font.PLAIN, 24));
+        g.setFont(new Font("TimesRoman", Font.PLAIN, 16));
 
         if(this.frames != 0) {
             g.drawString("FPS: " + this.frames, 1150, 20);

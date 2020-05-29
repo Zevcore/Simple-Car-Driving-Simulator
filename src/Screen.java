@@ -9,6 +9,7 @@ public class Screen extends Canvas {
 
     public Screen(int width, int height) {
 
+        /* Utworzenie "boardu" symulatora */
         this.width = width;
         this.height = height;
 
@@ -17,6 +18,10 @@ public class Screen extends Canvas {
         setMinimumSize(new Dimension(width, height));
         k = new Keyboard();
         addKeyListener(k);
+    }
+
+    public void update() {
+        k.update();
     }
 
     public Keyboard getK() {

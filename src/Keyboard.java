@@ -1,22 +1,35 @@
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class Keyboard implements KeyListener {
 
-    public Keyboard() {}
+    public boolean[] pressed = new boolean[256];
+    public boolean[] prev = new boolean[256];
 
-    /* Przyciski */
-    public boolean keyEngine;
-    public boolean keyLights;
-    public boolean keyMusic;
-    public boolean speedUp;
-    public boolean speedDown;
-    public boolean gearUp;
-    public boolean gearDown;
+    public Keyboard() {
 
-    /* */
-    public boolean pressing;
+    }
 
+    public void update() {
+        for(int i = 0; i < 7; i++) {
+            if(i == 0) prev[KeyEvent.VK_ENTER] = pressed[KeyEvent.VK_ENTER];
+            if(i == 1) prev[KeyEvent.VK_SHIFT] = pressed[KeyEvent.VK_SHIFT];
+            if(i == 2) prev[KeyEvent.VK_M] = pressed[KeyEvent.VK_M];
+            if(i == 3) prev[KeyEvent.VK_W] = pressed[KeyEvent.VK_W];
+            if(i == 4) prev[KeyEvent.VK_S] = pressed[KeyEvent.VK_S];
+            if(i == 5) prev[KeyEvent.VK_Q] = pressed[KeyEvent.VK_Q];
+            if(i == 6) prev[KeyEvent.VK_E] = pressed[KeyEvent.VK_E];
+        }
+    }
+
+    // silnik
+    // światla
+    // radio
+    // do przodu
+    // hamowanie
+    // bieg gora
+    // bieg dol
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -25,44 +38,16 @@ public class Keyboard implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        pressing = true;
-        updateKeys(e);
+        pressed[e.getKeyCode()] = true;
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        pressing = false;
+        pressed[e.getKeyCode()] = false;
     }
 
-    public void updateKeys(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_E){
-            if(keyEngine == true) keyEngine = false;
-            else keyEngine = true;
-        }
-        if(e.getKeyCode() == KeyEvent.VK_L){
-            if(keyLights == true) keyLights = false;
-            else keyLights = true;
-        }
-        if(e.getKeyCode() == KeyEvent.VK_M){
-            if(keyMusic == true) keyMusic = false;
-            else keyMusic = true;
-        }
-        if(e.getKeyCode() == KeyEvent.VK_W){
-            if(speedUp == true) speedUp = false;
-            else speedUp = true;
-        }
-        if(e.getKeyCode() == KeyEvent.VK_S){
-            if(speedDown == true) speedDown = false;
-            else speedDown = true;
-        }
-        if(e.getKeyCode() == KeyEvent.VK_UP){
-            if(gearUp == true) gearUp = false;
-            else gearUp = true;
-        }
-        if(e.getKeyCode() == KeyEvent.VK_DOWN){
-            if(gearDown == true) gearDown = false;
-            else gearDown = true;
-        }
+    public boolean typed(int keyEvent) {
+        return !pressed[keyEvent] && prev[keyEvent];
     }
 
 }
