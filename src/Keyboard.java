@@ -26,6 +26,15 @@ public class Keyboard implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         pressing = true;
+        updateKeys(e);
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        pressing = false;
+    }
+
+    public void updateKeys(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_E){
             if(keyEngine == true) keyEngine = false;
             else keyEngine = true;
@@ -34,11 +43,26 @@ public class Keyboard implements KeyListener {
             if(keyLights == true) keyLights = false;
             else keyLights = true;
         }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        pressing = false;
+        if(e.getKeyCode() == KeyEvent.VK_M){
+            if(keyMusic == true) keyMusic = false;
+            else keyMusic = true;
+        }
+        if(e.getKeyCode() == KeyEvent.VK_W){
+            if(speedUp == true) speedUp = false;
+            else speedUp = true;
+        }
+        if(e.getKeyCode() == KeyEvent.VK_S){
+            if(speedDown == true) speedDown = false;
+            else speedDown = true;
+        }
+        if(e.getKeyCode() == KeyEvent.VK_UP){
+            if(gearUp == true) gearUp = false;
+            else gearUp = true;
+        }
+        if(e.getKeyCode() == KeyEvent.VK_DOWN){
+            if(gearDown == true) gearDown = false;
+            else gearDown = true;
+        }
     }
 
 }
