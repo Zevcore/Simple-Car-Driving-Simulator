@@ -1,5 +1,3 @@
-import pl.wsb.car.Car;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -27,6 +25,8 @@ public class Container extends JFrame implements Runnable {
     /* Samochód */
     private Car car;
 
+    /* Wyłapywanie klawiatury */
+
     public Container() {
 
         /* Utworzenie okna */
@@ -53,7 +53,6 @@ public class Container extends JFrame implements Runnable {
 
     public synchronized void start() {
         running = true;
-
         thread = new Thread(this);
         thread.start();
     }
@@ -65,11 +64,11 @@ public class Container extends JFrame implements Runnable {
     }
 
     public void init() {
-        car = new Car();
+        car = new Car(screen);
     }
 
     public void update() {
-
+        car.update();
     }
 
     public void render() {

@@ -1,5 +1,3 @@
-package pl.wsb.car;
-
 import java.awt.*;
 
 public class Car {
@@ -10,6 +8,9 @@ public class Car {
     private boolean engine = false;
     private boolean lights = false;
     private boolean music = false;
+
+    private Keyboard keyboard;
+    private Screen s;
 
     /*
 
@@ -24,8 +25,9 @@ public class Car {
 
      */
 
-    public Car() {
-
+    public Car(Screen s) {
+        this.s = s;
+        keyboard = s.getK();
     }
 
     public void render(Graphics g) {
@@ -56,5 +58,13 @@ public class Car {
 
         g.drawString("Obroty silnika: " + rpm, 10, 110);
 
+    }
+
+    public void update() {
+        if(keyboard.keyEngine) this.engine = true;
+        else this.engine = false;
+
+        if(keyboard.keyLights) this.lights = true;
+        else this.lights = false;
     }
 }
