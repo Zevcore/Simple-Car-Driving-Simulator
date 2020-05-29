@@ -30,5 +30,5 @@ See also the list of [contributors](https://github.com/Zevcore/car-simulator/con
 
 
 ## Screenshots
-![ss1](https://github.com/Zevcore/car-simulator/ss1.png)
-![ss2](https://github.com/Zevcore/car-simulator/ss2.png)
+![ss1](https://github.com/Zevcore/car-simulator/blob/master/ss1.png)
+![ss2](https://github.com/Zevcore/car-simulator/blob/master/ss2.png)
